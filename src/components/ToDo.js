@@ -4,11 +4,23 @@ import { addTodo , removeToDo } from '../redux/TodoSlice';
 
 const ToDo = () => {
     const [mytask, setTask] = useState();
+    const [myid,setMyid] = useState(0);
     const dispatch = useDispatch();
-    const todoList = useSelector((state) => state.TodoSlice.allTodo)
+    const todoList = useSelector((state) => state.TodoSlice)
     // console.log(selector.allTodo)
     // const dlen = selector.allTodo.length;
-    console.log(removeToDo)
+
+    const addingTodo = ()=>{
+        setMyid(myid+1);
+        dispatch(addTodo(
+            {
+                id:myid,
+                task: mytask
+            }
+        ))
+        setTask("");
+        
+    }
     // console.log(dlen)
     return (
         <div>
@@ -22,14 +34,10 @@ const ToDo = () => {
                             }} />
                         </div>
                         <div className="col-sm-2">
-                            <button type="button" className="btn btn-outline-light p-2 " onClick={() => {
-                                dispatch(addTodo(
-                                    {
-                                        task: mytask
-                                    }
-                                ))
-                                setTask("");
-                            }}>Add Task</button>
+                            <button type="button" className="btn btn-outline-light p-2 " onClick={addingTodo
+                                
+                                
+                            }>Add Task</button>
                         </div>
                     </div>
 
@@ -54,9 +62,8 @@ const ToDo = () => {
                                             </p>
                                         </td>
                                         <td><div className=''>
-                                            <button type="button" className="btn btn-primary mx-1 m-1">Completed</button>
                                             <button type="button" className="btn btn-danger mx-1 m-1" onClick={()=>{
-                                                dispatch(removeToDo(data))
+                                                dispatch(removeToDo(data.id))
                                             }}>Delete</button>
                                         </div>
                                         </td>

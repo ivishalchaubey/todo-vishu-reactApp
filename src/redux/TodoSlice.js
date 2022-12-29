@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    allTodo: [
-    ]
-}
+const initialState = []
 
 
 export const TodoSlice = createSlice({
@@ -11,10 +8,10 @@ export const TodoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, actions) => {
-            state.allTodo.push({ ...actions.payload })
+            state.push({ ...actions.payload })
         },
         removeToDo: (state, actions) => {
-            
+            return state.filter((data)=>data.id !== actions.payload)
         }
     }
 })
